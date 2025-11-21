@@ -22,19 +22,21 @@
     height: 75%;
   }
   
-  
-  .board div:nth-child(odd) {
+  .board div {
     background: #e22525;
     border-radius: 50%;
 
 
   }
   
-  .board div:nth-child(even) {
+  .board div:nth-child(32) {
     background: #e22525;
     border-radius: 50%;
 
+
   }
+  
+
 
   
   #game {
