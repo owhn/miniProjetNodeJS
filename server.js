@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
   // Ici on donne une position aléatoire simple pour éviter le chevauchement initial
   players[socket.id] = {
     x: Math.floor(Math.random() * 500),
-    y: Math.floor(Math.random() * 300),
+    y: Math.floor(Math.random() * 500),
     id: socket.id,
     // tu peux ajouter : name, score, ready, team, etc.
   };
