@@ -1,12 +1,10 @@
-// public/jeu.js
-// Client-side : connexion au serveur, envoi des déplacements, dessin du canvas
-
 const socket = io(); // crée la connexion WebSocket vers le serveur
 
 // Variables locales = état du joueur local
 let localPlayerId = null; // id socket du joueur local (défini après 'connected')
 let local = { x: 50, y: 50 }; // position locale (sera mise à jour par les flèches)
 const playerSize = 30; // taille du carré représentant un joueur
+
 
 // Récupérer le canvas et son contexte
 const canvas = document.getElementById("game");
@@ -30,36 +28,6 @@ socket.on("update", (players) => {
   draw(players);
 });
 
-// Gestion des touches pour déplacer le joueur local
-document.addEventListener("keydown", (e) => {
-  // Modifier la position locale selon la touche pressée
-  // (ici on utilise des pas de 5 pixels)
-  if (e.key === "ArrowUp") local.y -= 5;
-  if (e.key === "ArrowDown") local.y += 5;
-  if (e.key === "ArrowLeft") local.x -= 5;
-  if (e.key === "ArrowRight") local.x += 5;
-//   if (e.key === "ArrowUp" & "ArrowLeft") {
-//     local.y -= 5;
-//     local.x -= 5;
-//   }
-//   if (e.key === "ArrowUp" & "ArrowRight") {
-//     local.y -= 5;
-//     local.x += 5;
-//   }
-//   if (e.key === "ArrowDown" & "ArrowLeft") {
-//     local.y += 5;
-//     local.x -= 5;
-//   }
-//   if (e.key === "ArrowDown" & "ArrowRight") {
-//     local.y += 5;
-//     local.x += 5;
-//   }
-  
-  
-
-  // Envoyer immédiatement le déplacement au serveur
-  socket.emit("move", { x: local.x, y: local.y });
-});
 
 // Fonction pour dessiner tous les joueurs sur le canvas
 function draw(players) {
@@ -79,7 +47,7 @@ function draw(players) {
     ctx.fillRect(p.x, p.y, playerSize, playerSize);
 
     // Afficher l'ID ou un pseudo au-dessus du joueur (optionnel)
-    ctx.fillStyle = "black";
+    ctx.fillStyle = "red";
     ctx.font = "12px Arial";
     ctx.fillText(id === localPlayerId ? "Moi" : id.slice(0, 4), p.x, p.y - 6);
   }

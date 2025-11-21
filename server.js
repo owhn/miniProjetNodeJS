@@ -1,6 +1,3 @@
-// server.js
-// Serveur Node + Express + Socket.io pour un jeu multijoueur simple
-
 const express = require("express");         // framework web léger
 const http = require("http");               // module http natif (nécessaire pour socket.io)
 const { Server } = require("socket.io");    // socket.io côté serveur
@@ -19,14 +16,31 @@ io.on("connection", (socket) => {
   // Nouveau client connecté
   console.log("Nouvelle connexion :", socket.id);
 
-  let grid = [
-    [null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null],
-    [null, null, null, null, null, null, null],
-  ];
+  // Initialiser la position du joueur qui vient de se connecter
+  // Ici on donne une position aléatoire simple pour éviter le chevauchement initial
+  players[socket.id] = {
+    x: Math.floor(Math.random() * 500),
+    y: Math.floor(Math.random() * 300),
+    id: socket.id,
+    // tu peux ajouter : name, score, ready, team, etc.
+  };
+
+  // Envoyer l'état initial à tous les clients (nouveau + existants)
+  io.emit("update", players);
+  // Optionnel : informer le nouveau client de son propre id
+  socket.emit("connected", { id: socket.id });
+
+  // Écoute d'un événement 'move' envoyé par le client (déplacement)
+  socket.on("move", (pos) => {
+    // Mettre à jour la position du joueur côté serveur (validation possible ici)
+    if (players[socket.id]) {
+      // Exemple simple de validation : limiter les coordonnées au canvas 0..600/0..400
+      players[socket.id].x = Math.max(0, Math.min(570, pos.x)); // 600 - largeur joueur (30)
+      players[socket.id].y = Math.max(0, Math.min(570, pos.y)); // 400 - hauteur joueur (30)
+    }
+    // Broadcast : envoyer l'état mis à jour à tous les clients
+    io.emit("update", players);
+  });
 
   // Gérer la déconnexion
   socket.on("disconnect", () => {
