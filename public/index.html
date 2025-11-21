@@ -1,26 +1,20 @@
+<!-- public/index.html -->
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>PUISSANCE 4</title>
-        <link rel="stylesheet" href="puissance4.css"/>
-    </head>
-    <body>
-        <h1>Puissance 4</h1>
-        <div class="board" id="game">
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-            <div></div><div></div><div></div><div></div><div></div><div></div><div></div>
-        </div>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Jeu Multijoueur - 2 joueurs</title>
+  <link rel="stylesheet" href="puissance4.css" />
+</head>
+<body>
+  <h1>Jeu Multijoueur (2 joueurs)</h1>
 
+  <!-- Canvas où l'on dessinera le jeu -->
+  <canvas id="game" width="600" height="600"></canvas>
 
-        
-
-
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="puissance4.js"></script>
-
-    </body>
+  <!-- Librairie socket.io fournie automatiquement par le serveur (endpoint /socket.io/socket.io.js) -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- Script principal du jeu côté client -->
+  <script src="index.js"></script>
+</body>
 </html>
