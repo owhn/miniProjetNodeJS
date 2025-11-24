@@ -1,0 +1,77 @@
+#buttons{
+    margin: 0px auto;
+    position: absolute;
+    z-index: 9999;
+}
+
+.colonne{
+    
+    width : 110px;
+    height: 720px;
+    background-color : transparent;
+    border-color:black;
+}
+
+body{
+    background-color: rgb(34, 33, 33);
+  }
+  
+  
+  
+  
+  .zone-jeu {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centre horizontalement */
+    gap: 0px;              /* colle le canvas au plateau */
+  }
+  
+  /* Ton canvas où bouge le carré */
+  #game {
+    background: transparent;
+    display: block;
+  }
+  /* --- Plateau 7 colonnes × 6 lignes --- */
+  .board {
+    position: absolute;
+    width: 840px;
+    height: 720px;
+    margin: 0px auto;
+  
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  
+    background-color: transparent;
+    border: 4px solid rgb(255, 255, 255);
+    padding: 15px;
+    box-sizing: border-box;
+    z-index: 1;
+  }
+  
+  /* --- Cases --- */
+  .board div {
+    width: 90%;
+    height: 90%;
+  
+    margin: auto;
+  
+    border: 3px solid white;
+    border-radius: 50%;
+    background-color:transparent;/* couleur du trou */
+    z-index: 1;
+  }
+  
+  /* --- Exemple : jeton rouge Spider-Man en position 5,3 ---🕷 */
+  .board div.rouge {
+    background: #e22525 url("sfspider.png") center/90% no-repeat;
+    border-color: white;
+  }
+  
+  /* --- Exemple : jeton violet Bouffon Vert en position 5,4 --- */
+  .board div.violet {
+    background: #9d25e2 url("bouffon.png") center/90% no-repeat;
+    border-color: white;
+  }
+  
+  
