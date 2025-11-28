@@ -17,7 +17,19 @@ body{
   }
   
   
+  #zone-message{
+    position :absolute;
+    width: 300px;
+    height: 150px;
+    background-color: transparent;
+    z-index: 10000;
+  }
   
+
+  #txtCentre{
+    text-emphasis-color: white;
+  }
+
   
   .zone-jeu {
     display: flex;

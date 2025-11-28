@@ -54,5 +54,16 @@ socket.on("colPleine",(colonne) =>{
 socket.on("victoire", (gagnant) => {
     console.log(gagnant + " gagne");
     document.getElementById("txtCentre").textContent="joueur " + gagnant +" remporte la partie";
-    document.getElementsByClassName("zone-message")
+    if(gagnant===1) document.getElementById("zone-message").style.backgroundColor="red";
+    else document.getElementById("zone-message").style.backgroundColor="yellow";
+});
+
+function clear(){
+    socket.emit("clearServ",numJoueur);
+    console.log("clear " + numJoueur);
+}
+
+socket.on("clearClient",(data)=>{
+    console.log("clear client");
+    document.getElementsByClassName("zone-jeton").style.backgroundColor="transparent";
 });

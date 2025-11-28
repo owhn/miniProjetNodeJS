@@ -11,6 +11,7 @@ const io = new Server(server);
 app.use(express.static("public"));
 
 let joueurs=[];
+let votant=[];
 
 let tab = [
   [0, 0, 0, 0, 0, 0, 0],
@@ -172,7 +173,20 @@ io.on("connection",(socket) =>  {
         break;
     }; 
     
-    
+    socket.on("clearServ",(vote) => {
+      votant.push[vote];
+      if(votant[0]!==votant[votant.length()-1]){
+        tab = [
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+        ];
+        io.emit("clearClient",(null));
+      };
+    });
     
     for (let i=0;i<6;i++){
         let ligne ="";
