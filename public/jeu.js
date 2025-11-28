@@ -1,13 +1,17 @@
 const socket = io(); // connexion automatique au serveur
+
 let joueurActif,numJoueur;
 
+//après chaque placement, le serveur informe le client du de l'id du joueur pour qui c'est le tour
 socket.on("tour",(joueur) =>{
     joueurActif=joueur;
     console.log("joueur actif :" + joueurActif);
 });
 
+//à la connexion du client, il récupère un ID assigné par le serveur
 socket.on("assignation",(num)=>{
     numJoueur=num;
+    console.log("mon id :" + numJoueur);
 });
 
 function colA(){
@@ -32,6 +36,7 @@ function colG(){
     if(joueurActif===numJoueur) socket.emit("choix", "G");
 }
 
+//on place les jetons avec les divs
 socket.on("placement",(data) => {
     let idPos= data.idPos;
     let joueur=data.joueur;
@@ -44,4 +49,10 @@ socket.on("placement",(data) => {
 //afficher un message d'erreur quand la colonne est pleine
 socket.on("colPleine",(colonne) =>{
     console.log("Colonne " + colonne + " pleine");
+});
+
+socket.on("victoire", (gagnant) => {
+    console.log(gagnant + " gagne");
+    document.getElementById("txtCentre").textContent="joueur " + gagnant +" remporte la partie";
+    document.getElementsByClassName("zone-message")
 });
