@@ -14,7 +14,10 @@ let joueurs=[];
 let votant=[];
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 let rooms ={};
 
 function createEmptyBoard() {
@@ -109,6 +112,7 @@ io.on("connection",(socket) =>  {
 
     
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     socket.on("clearServ",(vote) => {
       votant.push[vote];
       if(votant[0]!==votant[votant.length()-1]){
@@ -122,6 +126,8 @@ io.on("connection",(socket) =>  {
         ];
         io.emit("clearClient",(null));
 =======
+=======
+>>>>>>> Stashed changes
     socket.on("clearServ",(data) => {
       votant.push(data.vote);
       if (votant[0]!==votant[votant.length-1]) {
@@ -134,6 +140,9 @@ io.on("connection",(socket) =>  {
       }
       else {
         io.to(data.roomID).emit("clearClient", data.vote);
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
       };
     });

@@ -15,6 +15,7 @@ socket.on("assignation",(num)=>{
 });
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 function colA(){
     if(joueurActif===numJoueur) socket.emit("choix", "A");
 }
@@ -49,10 +50,22 @@ socket.on("roomJoined", (ID) => {
 
 //on place les jetons avec les divs
 socket.on("placement",(data) => {
+=======
+socket.on("roomJoined", (ID) => {
+    roomID=ID;
+    console.log("room : ", ID);
+});
+
+//on place les jetons avec les divs
+socket.on("placement",(data) => {
+>>>>>>> Stashed changes
     let idPos="";
     idPos= data.col + data.ligne; // ex : A6
     let joueur=data.player;
 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
     let div= document.getElementById(idPos);
     if (joueur===1) div.style.backgroundColor="red";
@@ -118,5 +131,9 @@ function colChoix(col){
         colonne : col,
         player: numJoueur
     }));
+<<<<<<< Updated upstream
+}
+>>>>>>> Stashed changes
+=======
 }
 >>>>>>> Stashed changes
