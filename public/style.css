@@ -27,9 +27,12 @@ body{
   
 
   #txtCentre{
-    text-emphasis-color: white;
+    color: rgb(240, 240, 240);
   }
 
+  #txtClear{
+    color:rgb(240, 240, 240);
+  }
   
   .zone-jeu {
     display: flex;

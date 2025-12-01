@@ -1,0 +1,10 @@
+1/ bouton clear ☺
+2/ room
+3/ bdd
+4/ menu
+	4.1/ pseudo + mdp
+	4.2/ elo
+	4.3/ soundboard
+	4.4/ skins
+	4.5/ player finder
+5/ chat

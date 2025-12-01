@@ -13,6 +13,18 @@ app.use(express.static("public"));
 let joueurs=[];
 let votant=[];
 
+function createEmptyBoard() {
+  return [
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0],
+      [0,0,0,0,0,0,0]
+  ];
+}
+
+
 let tab = [
   [0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0],
@@ -174,8 +186,8 @@ io.on("connection",(socket) =>  {
     }; 
     
     socket.on("clearServ",(vote) => {
-      votant.push[vote];
-      if(votant[0]!==votant[votant.length()-1]){
+      votant.push(vote);
+      if (votant[0]!==votant[votant.length-1]) {
         tab = [
           [0, 0, 0, 0, 0, 0, 0],
           [0, 0, 0, 0, 0, 0, 0],
@@ -184,7 +196,12 @@ io.on("connection",(socket) =>  {
           [0, 0, 0, 0, 0, 0, 0],
           [0, 0, 0, 0, 0, 0, 0],
         ];
-        io.emit("clearClient",(null));
+        votant=[];
+        vote=0;
+        io.emit("clearClient", vote);
+      }
+      else {
+        io.emit("clearClient", vote);
       };
     });
     
@@ -197,7 +214,6 @@ io.on("connection",(socket) =>  {
     }
     console.log("-------------");
   });
-
 });
   
 
