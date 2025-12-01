@@ -1,6 +1,6 @@
 const socket = io(); // connexion automatique au serveur
 
-let joueurActif,numJoueur;
+let joueurActif,numJoueur,roomID;
 
 //après chaque placement, le serveur informe le client du de l'id du joueur pour qui c'est le tour
 socket.on("tour",(joueur) =>{
@@ -14,6 +14,7 @@ socket.on("assignation",(num)=>{
     console.log("mon id :" + numJoueur);
 });
 
+<<<<<<< Updated upstream
 function colA(){
     if(joueurActif===numJoueur) socket.emit("choix", "A");
 }
@@ -40,6 +41,19 @@ function colG(){
 socket.on("placement",(data) => {
     let idPos= data.idPos;
     let joueur=data.joueur;
+=======
+socket.on("roomJoined", (ID) => {
+    roomID=ID;
+    console.log("room : ", ID);
+});
+
+//on place les jetons avec les divs
+socket.on("placement",(data) => {
+    let idPos="";
+    idPos= data.col + data.ligne; // ex : A6
+    let joueur=data.player;
+
+>>>>>>> Stashed changes
     let div= document.getElementById(idPos);
     if (joueur===1) div.style.backgroundColor="red";
     else if (joueur===2) div.style.backgroundColor="yellow";
@@ -53,11 +67,16 @@ socket.on("colPleine",(colonne) =>{
 
 socket.on("victoire", (gagnant) => {
     console.log(gagnant + " gagne");
+<<<<<<< Updated upstream
+=======
+    document.getElementById("zone-message").hidden=false;
+>>>>>>> Stashed changes
     document.getElementById("txtCentre").textContent="joueur " + gagnant +" remporte la partie";
     if(gagnant===1) document.getElementById("zone-message").style.backgroundColor="red";
     else document.getElementById("zone-message").style.backgroundColor="yellow";
 });
 
+<<<<<<< Updated upstream
 function clear(){
     socket.emit("clearServ",numJoueur);
     console.log("clear " + numJoueur);
@@ -67,3 +86,37 @@ socket.on("clearClient",(data)=>{
     console.log("clear client");
     document.getElementsByClassName("zone-jeton").style.backgroundColor="transparent";
 });
+=======
+
+
+socket.on("clearClient",(data)=>{
+    if(data===1 || data===2){
+        document.getElementById("txtClear").textContent="joueur " + data + " a voté.";
+    }
+    else{
+        let cases = document.getElementsByClassName("zone-jeton");
+        document.getElementById("txtClear").textContent="";
+        for (let c of cases) {
+            c.style.backgroundColor = "transparent";
+        }
+        document.getElementById("zone-message").hidden = true;    
+    }
+});
+
+function joinRoom(){
+    socket.emit("joinRoom");
+}
+
+function recommencer(){
+    console.log("clear " + numJoueur);
+    socket.emit("clearServ", {vote: numJoueur, roomID});
+}
+
+function colChoix(col){
+    if(joueurActif===numJoueur) socket.emit("choix", ({
+        roomID,
+        colonne : col,
+        player: numJoueur
+    }));
+}
+>>>>>>> Stashed changes
