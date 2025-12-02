@@ -6,14 +6,17 @@
   </head>
   <body>
     <div class="zone-jeu">
+      <!--Rajout canva-->
+      <canvas id="game" width="818" height="120"></canvas>
+
       <div id="buttons">
-        <input type="button" id="colonneA" class="colonne" onclick="colChoix(0)">
-        <input type="button" id="colonneB" class="colonne" onclick="colChoix(1)">
-        <input type="button" id="colonneC" class="colonne" onclick="colChoix(2)">
-        <input type="button" id="colonneD" class="colonne" onclick="colChoix(3)">
-        <input type="button" id="colonneE" class="colonne" onclick="colChoix(4)">
-        <input type="button" id="colonneF" class="colonne" onclick="colChoix(5)">
-        <input type="button" id="colonneG" class="colonne" onclick="colChoix(6)">
+        <input type="button" id="colonneA" class="colonne" onclick="colChoix(0,9)">
+        <input type="button" id="colonneB" class="colonne" onclick="colChoix(1,125)">
+        <input type="button" id="colonneC" class="colonne" onclick="colChoix(2,241)">
+        <input type="button" id="colonneD" class="colonne" onclick="colChoix(3,357)">
+        <input type="button" id="colonneE" class="colonne" onclick="colChoix(4,473)">
+        <input type="button" id="colonneF" class="colonne" onclick="colChoix(5,589)">
+        <input type="button" id="colonneG" class="colonne" onclick="colChoix(6,705)">
       </div>
       <div class="board" id="plateau">
         <!-- Ligne 1 -->
@@ -34,13 +37,24 @@
         <!-- Ligne 6 -->
         <div id="A6" class="zone-jeton"></div><div id="B6" class="zone-jeton"></div><div id="C6" class="zone-jeton"></div><div id="D6" class="zone-jeton"></div><div id="E6" class="zone-jeton"></div><div id="F6" class="zone-jeton"></div><div id="G6" class="zone-jeton"></div>
       </div>
-      <div class="zone-message" id="zone-message">
-        <h1 id="txtCentre"></h1>
-      </div>
+      <!--Modif message victoire--> 
+      <blockquote id = "victoire" class = "victoire" hidden><h2 id = "twin"></h2></blockquote>
+
     </div>
     
     <div class="zone-menu">
       <input type="button" id="btnClear" value="recommencer" onclick="recommencer()">
+      <h2 id = "txtClear" class = "txtClear"></h2>
+      <input type="button" id="btnJoinRoom" value="btnJoinRoom" onclick="joinRoom()">
+      <!--Selction theme-->
+      <h1>Theme : </h1> 
+      <select id="theme">
+        <option value="spider" selected="selected">SPIDER-MAN</option>
+        <option value="bk" >Booba - Kaaris</option>
+        <option value="gf" >George Floyd</option>
+      </select>
+
+      
     </div>
     
     <script src="/socket.io/socket.io.js"></script>
