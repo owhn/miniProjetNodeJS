@@ -13,11 +13,7 @@ app.use(express.static("public"));
 let joueurs=[];
 let votant=[];
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
+
 let rooms ={};
 
 function createEmptyBoard() {
@@ -30,18 +26,6 @@ function createEmptyBoard() {
       [0,0,0,0,0,0,0]
   ];
 }
-
-
->>>>>>> Stashed changes
-let tab = [
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0],
-];
-
 
 
 
@@ -110,24 +94,6 @@ io.on("connection",(socket) =>  {
     else room.turn=1;
     io.to(roomID).emit("tour", room.turn);
 
-    
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    socket.on("clearServ",(vote) => {
-      votant.push[vote];
-      if(votant[0]!==votant[votant.length()-1]){
-        tab = [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-        ];
-        io.emit("clearClient",(null));
-=======
-=======
->>>>>>> Stashed changes
     socket.on("clearServ",(data) => {
       votant.push(data.vote);
       if (votant[0]!==votant[votant.length-1]) {
@@ -140,10 +106,6 @@ io.on("connection",(socket) =>  {
       }
       else {
         io.to(data.roomID).emit("clearClient", data.vote);
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
       };
     });
     

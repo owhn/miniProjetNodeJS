@@ -14,35 +14,6 @@ socket.on("assignation",(num)=>{
     console.log("mon id :" + numJoueur);
 });
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-function colA(){
-    if(joueurActif===numJoueur) socket.emit("choix", "A");
-}
-function colB(){
-    if(joueurActif===numJoueur) socket.emit("choix", "B");
-}
-function colC(){
-    if(joueurActif===numJoueur) socket.emit("choix", "C");
-}
-function colD(){
-    if(joueurActif===numJoueur) socket.emit("choix", "D");
-}
-function colE(){
-    if(joueurActif===numJoueur) socket.emit("choix", "E");
-}
-function colF(){
-    if(joueurActif===numJoueur) socket.emit("choix", "F");
-}
-function colG(){
-    if(joueurActif===numJoueur) socket.emit("choix", "G");
-}
-
-//on place les jetons avec les divs
-socket.on("placement",(data) => {
-    let idPos= data.idPos;
-    let joueur=data.joueur;
-=======
 socket.on("roomJoined", (ID) => {
     roomID=ID;
     console.log("room : ", ID);
@@ -50,23 +21,10 @@ socket.on("roomJoined", (ID) => {
 
 //on place les jetons avec les divs
 socket.on("placement",(data) => {
-=======
-socket.on("roomJoined", (ID) => {
-    roomID=ID;
-    console.log("room : ", ID);
-});
-
-//on place les jetons avec les divs
-socket.on("placement",(data) => {
->>>>>>> Stashed changes
     let idPos="";
     idPos= data.col + data.ligne; // ex : A6
     let joueur=data.player;
 
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     let div= document.getElementById(idPos);
     if (joueur===1) div.style.backgroundColor="red";
     else if (joueur===2) div.style.backgroundColor="yellow";
@@ -80,26 +38,12 @@ socket.on("colPleine",(colonne) =>{
 
 socket.on("victoire", (gagnant) => {
     console.log(gagnant + " gagne");
-<<<<<<< Updated upstream
-=======
     document.getElementById("zone-message").hidden=false;
->>>>>>> Stashed changes
     document.getElementById("txtCentre").textContent="joueur " + gagnant +" remporte la partie";
     if(gagnant===1) document.getElementById("zone-message").style.backgroundColor="red";
     else document.getElementById("zone-message").style.backgroundColor="yellow";
 });
 
-<<<<<<< Updated upstream
-function clear(){
-    socket.emit("clearServ",numJoueur);
-    console.log("clear " + numJoueur);
-}
-
-socket.on("clearClient",(data)=>{
-    console.log("clear client");
-    document.getElementsByClassName("zone-jeton").style.backgroundColor="transparent";
-});
-=======
 
 
 socket.on("clearClient",(data)=>{
@@ -131,9 +75,4 @@ function colChoix(col){
         colonne : col,
         player: numJoueur
     }));
-<<<<<<< Updated upstream
 }
->>>>>>> Stashed changes
-=======
-}
->>>>>>> Stashed changes
