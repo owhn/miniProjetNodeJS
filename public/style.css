@@ -1,0 +1,138 @@
+
+h1{
+  margin :5px;
+  color: #ffffff;
+}
+
+h2{
+  /*texte centre victoire*/
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 500%;
+  text-align: center ;
+  opacity: 1;
+  color: #ffffff;
+}
+
+
+#buttons{
+    margin: 0px auto;
+    position: absolute;
+    z-index: 9999;
+}
+
+.colonne{
+    
+    width : 110px;
+    height: 830px;
+    margin-top: 20px;
+    background-color : transparent;
+    border-color:transparent;
+}
+
+body{
+    background-color: rgb(34, 33, 33);
+  }
+  
+  
+  #zone-message{
+    position :absolute;
+    width: 300px;
+    height: 150px;
+    background-color: transparent;
+    z-index: 10000;
+  }
+  
+
+
+
+  
+  .zone-jeu {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centre horizontalement */
+    gap: 0px;              /* colle le canvas au plateau */
+  }
+  
+  /* Ton canvas où bouge le carré */
+  #game {
+    background: transparent;
+    display: block;
+    margin-top: 20px;
+  }
+  /* --- Plateau 7 colonnes × 6 lignes --- */
+  .board {
+    position: absolute;
+    width: 840px;
+    height: 720px;
+    margin: 0px auto;
+    margin-top:142px;
+  
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+  
+    background-color: #007cd9;
+    border: 4px solid rgb(255, 255, 255);
+    padding: 15px;
+    box-sizing: border-box;
+    z-index: 1;
+  }
+  
+  /* --- Cases --- */
+  .board div {
+    width: 90%;
+    height: 90%;
+  
+    margin: auto;
+  
+    border: 3px solid white;
+    border-radius: 50%;
+    background-color: rgb(34, 33, 33);
+    z-index: 1;
+  }
+  
+  /*STYLE JETON
+  /////////////////////////////////////////////////////////////////*/
+  .board div.rouge {
+    background: #e22525 url("sfspider.png") center/90% no-repeat;
+    border-color: white;
+  }
+  
+  .board div.jaune {
+    background: #ffe600 url("sfspider.png") center/90% no-repeat;
+    border-color: white;
+  }
+
+  .board div.booba {
+    background: #ffe600 url("booba.png") center/170% no-repeat;
+    border-color: white;
+  }
+
+  .board div.kaaris {
+    background: #e22525 url("kaaris.png") center/120% no-repeat;
+    border-color: white;
+  }
+
+  .board div.gf {
+    background: #e22525 url("gf.png") center/170% no-repeat;
+    border-color: white;
+  }
+
+  .board div.pgf {
+    background: #ffe600 url("pgf.png") center/150% no-repeat;
+    border-color: white;
+  }
+  /*////////////////////////////////////////////////////////////////////*/
+  
+  blockquote.victoire{
+    /*block message victoire*/
+    position: absolute;
+    background-color: #2b2b2b;
+    opacity: 90%;
+    z-index: 1;
+    
+    margin-top: 16%;
+    width: 44%;
+    height : 35%
+  }
+  
