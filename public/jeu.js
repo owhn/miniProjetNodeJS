@@ -99,7 +99,8 @@ socket.on("clearClient",(data)=>{
         let cases = document.getElementsByClassName("zone-jeton");
         document.getElementById("txtClear").textContent="";
         for (let c of cases) {
-            c.style.backgroundColor = "transparent";
+            c.style.backgroundColor = "rgb(34, 33, 33)";
+            c.classList.remove("rouge", "jaune", "kaaris", "booba", "gf", "pgf");
         }
         document.getElementById("zone-message").hidden = true;    
     }
