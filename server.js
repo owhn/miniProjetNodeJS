@@ -92,6 +92,9 @@ io.on("connection",(socket) =>  {
     io.to(pos.roomID).emit("update", joueurs[pos.roomID]);
   });
 
+
+
+
   ////////////////////////////////////////////////////////////////////////////
   socket.on("choix", ({roomID, colonne, player}) => {
     const room=rooms[roomID]; 
@@ -99,6 +102,15 @@ io.on("connection",(socket) =>  {
     let charCol = ['A','B','C','D','E','F','G'];
     let tab=room.board;
     if(player !== room.turn) return; 
+
+    ////////////////////////////////////////////
+    if (colonne == "ab"){
+      if (player == 1) io.to(roomID).emit("victoire", 2);
+      else if (player == 2) io.to(roomID).emit("victoire", 1);
+      return;
+    }
+    
+    ////////////////////////////////////////////
 
     for (let i = 5; i >= 0; i--) {
       if (tab[i][colonne] === 0) {
@@ -151,6 +163,8 @@ function checkWin(tab, joueur) {
     const ROWS = 6;
     const COLS = 7;
 
+
+
     for (let r = 0; r < ROWS; r++) {
         for (let c = 0; c < COLS; c++) {
 
@@ -190,6 +204,7 @@ function checkWin(tab, joueur) {
         }
     }
     return false;
+
 }
 
 server.listen(PORT, () => {                

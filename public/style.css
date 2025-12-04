@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "cartoon";
+  src: url("Star\ Cartoon.otf") format("truetype");
+}
 
 h1{
   margin :5px;
@@ -13,6 +17,10 @@ h2{
   color: #ffffff;
 }
 
+h3{
+  font-size : 13px;
+  font-family : "cartoon",sans-serif;
+}
 
 #buttons{
     margin: 0px auto;
@@ -87,7 +95,7 @@ body{
   
     border: 3px solid white;
     border-radius: 50%;
-    background-color: rgb(34, 33, 33);
+    background-color: #222121;
     z-index: 1;
   }
   
@@ -99,7 +107,7 @@ body{
   }
   
   .board div.jaune {
-    background: #ffe600 url("sfspider.png") center/90% no-repeat;
+    background: #ffe600 url("spidernoir.png") center/120% no-repeat;
     border-color: white;
   }
 
@@ -135,4 +143,118 @@ body{
     width: 44%;
     height : 35%
   }
+
+  blockquote.zone-menu{
+    border: 2px solid #000;
+    border-color: white;
+    display : block;
+    background-color: #0c0c0c;
+    position: absolute;
+
+    margin-top: 0px;
+    width: 400px;
+    height: 720px;
+
+  }
+
+  button.btnClear{
+    position :absolute;
+    background-color: #6e6e6e;
+    border-color: white;
+    width: 100px;
+    height: 50px;
+    border-radius: 25%;
+    z-index: 3;
+  
+    margin-top: 875px;
+    margin-left: 735px;
+
+  }
+
+  button.btnAban{
+    position :absolute;
+    background-color: #6e6e6e;
+    border-color: white;
+    width: 100px;
+    height: 50px;
+    border-radius: 25%;
+    z-index: 3;
+  
+    margin-top: 875px;
+    margin-left: 500px;
+  }
+
+  button.btnAban2{
+    position :absolute;
+    background-color: #e22525;
+    border-color: white;
+    width: 100px;
+    height: 50px;
+    border-radius: 25%;
+    z-index: 3;
+  
+    margin-top: 875px;
+    margin-left: 500px;
+
+  }
+
+
+  h3.room{
+    color: white;
+    font-size: 20px;
+  }
+  button.btnTRoom{
+    position :absolute;
+    background-color: #181818;
+    border-color: white;
+    width: 150px;
+    height: 100px;
+    border-radius: 30%;
+
+    margin-left: 30%;
+  }
+
+  h3.blockRoom{
+    color: rgb(68, 66, 66);
+    font-size: 30px;
+    margin-top: 15%;
+    margin-left: 3%;
+  }
+  blockquote.blockRoom{
+    position : absolute;
+    width: 700px;
+    height: 400px;
+    margin:center ;
+    margin-top: 10%;
+    z-index: 10;
+    border-radius: 20%;
+
+
+    background-color: pink;
+  }
+
+  button.blockbtnJoin{
+    position :absolute;
+    background: #6e6e6e url(recherche.png) center/25% no-repeat;
+
+    border-color: white;
+    width: 150px;
+    height: 50px;
+    border-radius: 25%;
+    margin-left: 70%;
+    margin-top: -10.5%;
+  }
+
+  input.codeRoom{
+    position :absolute;
+    width: 300px;
+    height: 50px;
+    border-radius: 25%;
+    margin-left: 51%;
+    margin-top: -10.5%;
+
+    font-family: "cartoon";
+    font-size: 30px;
+  }
+
   

@@ -16,14 +16,15 @@ const ctx = canvas.getContext("2d");
 const playerImgs1 = new Image();
 playerImgs1.src = "sfspider.png";
 
+const playerImgs2 = new Image();
+playerImgs2.src = "spidernoir.png";
+
 const playerImgbk1 = new Image();
 playerImgbk1.src = "kaarisr.png";
 
 const playerImgbk2 = new Image();
 playerImgbk2.src = "boobar.png";
 
-const playerImgs2 = new Image();
-playerImgs2.src = "venomr.png";
 
 const playerImggf1 = new Image();
 playerImggf1.src = "gfr.png";
@@ -91,20 +92,25 @@ socket.on("victoire", (gagnant) => {
     else document.getElementById("victoire").style.backgroundColor="yellow";*/
 });
 
+////////////////////////////Mathys Modif//////////////////////////
+var btnClear = document.getElementById("btnClear")
 socket.on("clearClient",(data)=>{
     if(data===1 || data===2){
-        document.getElementById("txtClear").textContent="joueur " + data + " a voté.";
+        btnClear.style.backgroundColor = "#08CC0A"
     }
     else{
         let cases = document.getElementsByClassName("zone-jeton");
         document.getElementById("txtClear").textContent="";
         for (let c of cases) {
-            c.style.backgroundColor = "transparent";
+            c.style.backgroundColor = "";
+            c.className = "";
+            btnClear.style.backgroundColor = "#6e6e6e"
+
         }
         document.getElementById("zone-message").hidden = true;    
     }
 });
-
+/////////////////////////////////////////////////////////////////
 /*SOCKET RAJOUT2 PAR MATHYS
 //////////////////////////////////////////////////////////////////////////////////*/
 socket.on("connect", () => {
@@ -158,6 +164,7 @@ function joinRoom(){
     socket.emit("joinRoom");
 }
 
+
 function recommencer(){
     console.log("clear " + numJoueur);
     socket.emit("clearServ", {vote: numJoueur, roomID});
@@ -175,6 +182,26 @@ function colChoix(col,pos){
 
 /*FONTION RAJOUT2 PAR MATHYS
 //////////////////////////////////////////////////////////////////////*/
+var btnAban = document.getElementById("btnAban")
+var btnAban2 = document.getElementById("btnAban2")
+let timer;
+
+function abandonner(){
+    btnAban.hidden = true;
+    btnAban2.hidden = false;
+    timer = setTimeout(() => {
+        btnAban.hidden = false;
+        btnAban2.hidden = true;
+        }, 5001);
+    
+      btnAban2.onclick = function(){
+        clearTimeout(timer);
+        socket.emit("choix", ({roomID,colonne : "ab",player: numJoueur}));
+
+      }
+
+}
+
 var ttheme = document.getElementById("theme")
 
 function draw(players) {
@@ -212,7 +239,7 @@ function draw(players) {
         }
         else if (ttheme.value == "spider") {
             if (joueur === 1) ctx.drawImage(playerImgs1, p.x, p.y, playerSize, playerSize);
-            else ctx.drawImage(playerImgs1, p.x, p.y, playerSize, playerSize);
+            else ctx.drawImage(playerImgs2, p.x-15, p.y+10, playerSize+30, playerSize-20);
         }
         else if (ttheme.value == "gf") {
             if (joueur === 1) ctx.drawImage(playerImggf1, p.x, p.y, playerSize, playerSize);

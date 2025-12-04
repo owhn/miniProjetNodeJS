@@ -40,12 +40,22 @@
       <!--Modif message victoire--> 
       <blockquote id = "victoire" class = "victoire" hidden><h2 id = "twin"></h2></blockquote>
 
+      <button class = "btnClear" id = "btnClear" onclick="recommencer()"><h3 id = "recot">RECOMMENCER</h3></button>
+
+      <button class = "btnAban" id = "btnAban"><h3 id = "abt" onclick="abandonner()">ABANDONNER</h3></button>
+      <button class = "btnAban2" id = "btnAban2" hidden><h3 id = "abt2"><h3>Valider ?</h3></button>
+      <blockquote class = "blockRoom" id = "blockRoom" >
+        <h3 class = "blockRoom">Trouver une partie aleatoire : </h3><button class ="blockbtnJoin" id = "btnJoinRoom"onclick="joinRoom()"></button>
+        <h3 class="blockRoom">Chercher une partie : </h3><input type = "text" id="codeRoom" class ="codeRoom" placeholder= "Entrez votre code : " >
+      </blockquote>
+
+
     </div>
     
-    <div class="zone-menu">
-      <input type="button" id="btnClear" value="recommencer" onclick="recommencer()">
+    <blockquote class="zone-menu">
       <h2 id = "txtClear" class = "txtClear"></h2>
-      <input type="button" id="btnJoinRoom" value="btnJoinRoom" onclick="joinRoom()">
+      <button class = "btnTRoom" id="btnJoinRoom" onclick="joinRoom()" ><h3 class = "room">Trouver une partie</h3></button>
+
       <!--Selction theme-->
       <h1>Theme : </h1> 
       <select id="theme">
@@ -55,7 +65,7 @@
       </select>
 
       
-    </div>
+    </blockquote>
     
     <script src="/socket.io/socket.io.js"></script>
     <script src="jeu.js"></script>
