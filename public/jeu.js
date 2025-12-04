@@ -46,8 +46,10 @@ socket.on("assignation",(num)=>{
     console.log("mon id :" + numJoueur);
 });
 
+var code = document.getElementById("code");
 socket.on("roomJoined", (ID) => {
     roomID=ID;
+    code.textContent = "Votre code : " + roomID.substring(4,10);
     console.log("room : ", ID);
 });
 
@@ -182,6 +184,15 @@ function colChoix(col,pos){
 
 /*FONTION RAJOUT2 PAR MATHYS
 //////////////////////////////////////////////////////////////////////*/
+
+
+
+var blockRoom = document.getElementById("blockRoom")
+function block(){
+    if(blockRoom.hidden == true) blockRoom.hidden = false;
+    else if (blockRoom.hidden == false) blockRoom.hidden = true;
+}
+
 var btnAban = document.getElementById("btnAban")
 var btnAban2 = document.getElementById("btnAban2")
 let timer;

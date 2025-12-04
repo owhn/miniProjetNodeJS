@@ -44,17 +44,20 @@
 
       <button class = "btnAban" id = "btnAban"><h3 id = "abt" onclick="abandonner()">ABANDONNER</h3></button>
       <button class = "btnAban2" id = "btnAban2" hidden><h3 id = "abt2"><h3>Valider ?</h3></button>
-      <blockquote class = "blockRoom" id = "blockRoom" >
-        <h3 class = "blockRoom">Trouver une partie aleatoire : </h3><button class ="blockbtnJoin" id = "btnJoinRoom"onclick="joinRoom()"></button>
+      
+      <div class = "blockRoom" id = "blockRoom" hidden >
+        <h3 class = "blockRoom">Trouver une partie aleatoire : </h3><button class ="blockbtnJoin" id = "btnJoinRoom" onclick="joinRoom()"></button>
         <h3 class="blockRoom">Chercher une partie : </h3><input type = "text" id="codeRoom" class ="codeRoom" placeholder= "Entrez votre code : " >
-      </blockquote>
+        <button class ="validroom" id = "validroom" onclick="chercheroom()"></button>
+      </div>
 
 
     </div>
     
     <blockquote class="zone-menu">
-      <h2 id = "txtClear" class = "txtClear"></h2>
-      <button class = "btnTRoom" id="btnJoinRoom" onclick="joinRoom()" ><h3 class = "room">Trouver une partie</h3></button>
+
+      <h3 id = "code" class = "room">Votre code : </h3>
+      <button class = "btnTRoom" id="btnTRoom" onclick="block()" ><h3 class = "room">Trouver une partie</h3></button>
 
       <!--Selction theme-->
       <h1>Theme : </h1> 
