@@ -57,11 +57,16 @@
     <blockquote class="zone-menu">
 
       <h3 id = "code" class = "room">Votre code : </h3>
-      <button class = "btnTRoom" id="btnTRoom" onclick="block()" ><h3 class = "room">Trouver une partie</h3></button>
+      <button class = "btnTRoom" id="btnTRoom" onclick="block()" ><h3 class = "btn">Trouver une partie</h3></button>
+      <h3 class="tplein" id = "tplein"></h3>
+      <button class="quit" id="quit" onclick="quitRoom()">
+        <h3 class="btn">Quitter la partie</h3>
+      </button>
 
+      
       <!--Selction theme-->
-      <h1>Theme : </h1> 
-      <select id="theme">
+      <h3 class ="theme">Theme : </h3> 
+      <select class ="theme" id="theme">
         <option value="spider" selected="selected">SPIDER-MAN</option>
         <option value="bk" >Booba - Kaaris</option>
         <option value="gf" >George Floyd</option>

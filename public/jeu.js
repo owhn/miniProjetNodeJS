@@ -50,6 +50,7 @@ var code = document.getElementById("code");
 socket.on("roomJoined", (ID) => {
     roomID=ID;
     code.textContent = "Votre code : " + roomID.substring(4,10);
+    tplein.textContent = "";
     console.log("room : ", ID);
 });
 
@@ -164,6 +165,7 @@ document.addEventListener("keydown", (e) => {
 
 function joinRoom(){
     socket.emit("joinRoom");
+    blockRoom.hidden = true;
 }
 
 
@@ -184,8 +186,25 @@ function colChoix(col,pos){
 
 /*FONTION RAJOUT2 PAR MATHYS
 //////////////////////////////////////////////////////////////////////*/
+var codeRoom = document.getElementById("codeRoom")
+function chercheroom(){
+    console.log(codeRoom.value)
+    socket.emit("joinRoom",codeRoom.value)
+    blockRoom.hidden = true;
+}
+var tplein = document.getElementById("tplein")
 
+socket.on("plein",()=>{
+    tplein.textContent = "Cette partie est pleine";
+})
 
+function quitRoom(){
+    socket.emit("quit",roomID)
+    socket.on("quitvalid",()=>{
+        code.textContent = "Votre code : "
+        tplein.textContent = "Partie bien quittee"
+    })
+}
 
 var blockRoom = document.getElementById("blockRoom")
 function block(){

@@ -30,8 +30,9 @@ function createEmptyBoard() {
 io.on("connection",(socket) =>  {
   console.log("client connecté :",socket.id);
   
-  socket.on("joinRoom", () => {
+  socket.on("joinRoom", (data) => {
     let roomID = null;
+
 
     for (let id in rooms){
       if (rooms[id].players.length===1){
@@ -40,7 +41,7 @@ io.on("connection",(socket) =>  {
       };
     }
 
-    if(!roomID){
+    if (!roomID && data === undefined){
       roomID= "room" + Math.floor(Math.random()*100000);
       rooms[roomID] = {
         players: [],
@@ -48,6 +49,24 @@ io.on("connection",(socket) =>  {
         board: createEmptyBoard()
       };
     }
+
+    /////////////////////////////////////////////////
+    if (data !== undefined) {
+      roomID = "room" + data;
+      if (!rooms[roomID]){
+        rooms[roomID] = {
+          players: [],
+          turn: 1,
+          board: createEmptyBoard()
+        };
+      } else {
+        if (rooms["room" + data].players.length === 2){
+          socket.emit("plein");
+          return;
+        }
+      }
+    };
+    /////////////////////////////////////////////////
 
     socket.join(roomID);
     rooms[roomID].players.push(socket.id);
@@ -76,6 +95,20 @@ io.on("connection",(socket) =>  {
 
   ////////////////////////////////////////////////////////////////////////
   // Déplacement Mathys
+  socket.on("quit",(roomID)=>{
+    socket.leave(roomID);
+
+    if (rooms[roomID]) {
+      rooms[roomID].players = rooms[roomID].players.filter(id => id !== socket.id);
+    }
+    
+    if (rooms[roomID].players.length === 0){
+      console.log(roomID)
+      delete rooms[roomID];
+      delete joueurs[roomID];
+    }
+    socket.emit("quitvalid")
+  })
 
   socket.on("move", (pos) => {
     if (!joueurs[pos.roomID]) joueurs[pos.roomID] = {};
