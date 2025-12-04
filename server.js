@@ -2,6 +2,8 @@ const express = require("express");
 const {Server}=require("socket.io");
 const http = require("http");
 
+const bdd = require("./bdd.js");
+
 const PORT = 3000;
 
 const app = express();
@@ -27,17 +29,45 @@ function createEmptyBoard() {
   ];
 }
 
+
+
+
+
 io.on("connection",(socket) =>  {
   console.log("client connecté :",socket.id);
   
-  socket.on("joinRoom", () => {
+  socket.on("register", async ({ pseudo, mdp }) => {
+    try {
+        const id = await bdd.createUser(pseudo, mdp);
+        socket.emit("register_ok", id);
+    } catch (e) {
+        socket.emit("register_fail", "Pseudo déjà pris");
+    }
+  });
+
+  socket.on("login", async ({ pseudo, mdp }) => {
+    const result = await bdd.loginUser(pseudo, mdp);
+
+    if (!result.ok) {
+        socket.emit("login_fail", result.msg);
+    } else {
+        socket.emit("login_ok", result.user);
+    }
+  });
+
+  socket.on("leaveRoom",(closingRoomID)=>{
+    delete rooms[closingRoomID];
+    io.to(closingRoomID).emit("closedRoom",(closingRoomID + " fermée"));
+  });
+
+  socket.on("joinRoom", (prevID) => {
     let roomID = null;
 
     for (let id in rooms){
       if (rooms[id].players.length===1){
         roomID=id;
         break;
-      };
+      }
     }
 
     if(!roomID){
@@ -104,10 +134,12 @@ io.on("connection",(socket) =>  {
       if (tab[i][colonne] === 0) {
           tab[i][colonne] = player
           io.to(roomID).emit("placement", { ligne: i+1, col : charCol[colonne], player });
+          io.to(roomID).emit("tour",room.turn)
           break;
       }
       else if (tab[0][colonne]!==0){
         socket.emit("colPleine",charCol[colonne]);
+        io.to(roomID).emit("tour",room.turn)
       };
     }
 
@@ -128,7 +160,7 @@ io.on("connection",(socket) =>  {
         votant=[];
         data.vote=0;
         io.to(data.roomID).emit("clearClient", data.vote);
-        io.to(roomID).emit("tour", 1);
+        io.to(data.roomID).emit("tour", 1);
       }
       else {
         io.to(data.roomID).emit("clearClient", data.vote);
@@ -192,6 +224,10 @@ function checkWin(tab, joueur) {
     return false;
 }
 
-server.listen(PORT, () => {                
-  console.log(`Serveur démarré sur http://localhost:${PORT}`);
-});
+(async () => {
+  await bdd.connexion();
+
+  server.listen(PORT, () => {
+      console.log(`Serveur démarré : http://localhost:${PORT}`);
+  });
+})();

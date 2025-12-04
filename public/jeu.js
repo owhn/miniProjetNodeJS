@@ -1,6 +1,6 @@
 const socket = io(); // connexion automatique au serveur
 
-let joueurActif,numJoueur,roomID;
+let joueurActif,numJoueur,roomID,playerID;
 
 /////////////////////Mathys//////////////////////
 
@@ -64,16 +64,34 @@ socket.on("placement",(data) => {
     let theme = document.getElementById("theme").value;
 
     if (theme === "spider") {
-        if (joueur === 1) div.classList.add("rouge");
-        else if (joueur === 2) div.classList.add("jaune");
+        if (joueur === 1) {
+            div.style.backgroundColor="#e22525";
+            div.classList.add("rouge");
+        }
+        else if (joueur === 2) {
+            div.style.backgroundColor="#ffe600"
+            div.classList.add("jaune");
+        }
     }
     else if (theme === "bk") {
-        if (joueur === 1) div.classList.add("kaaris");
-        else if (joueur === 2)div.classList.add("booba");
+        if (joueur === 1) {
+            div.style.backgroundColor="#e22525";
+            div.classList.add("kaaris");
+        }
+        else if (joueur === 2){
+            div.style.backgroundColor="#ffe600"
+            div.classList.add("booba");
+        }
     }
     else if (theme === "gf") {
-        if (joueur === 1) div.classList.add("gf");
-        else if (joueur === 2)div.classList.add("pgf");
+        if (joueur === 1) {
+            div.style.backgroundColor="#e22525";
+            div.classList.add("gf");
+        }
+        else if (joueur === 2){
+            div.style.backgroundColor="#ffe600"
+            div.classList.add("pgf");
+        }
     }
 
 });
@@ -87,8 +105,6 @@ socket.on("victoire", (gagnant) => {
     console.log(gagnant + " gagne");
     document.getElementById("victoire").hidden=false;
     document.getElementById("twin").textContent="joueur " + gagnant +" remporte la partie";
-    /*if(gagnant===1) document.getElementById("victoire").style.backgroundColor="red";
-    else document.getElementById("victoire").style.backgroundColor="yellow";*/
 });
 
 socket.on("clearClient",(data)=>{
@@ -99,9 +115,10 @@ socket.on("clearClient",(data)=>{
         let cases = document.getElementsByClassName("zone-jeton");
         document.getElementById("txtClear").textContent="";
         for (let c of cases) {
-            c.style.backgroundColor = "transparent";
+            c.classList.remove("rouge", "jaune", "kaaris", "booba", "gf", "pgf");
+            c.style.backgroundColor = "";
         }
-        document.getElementById("zone-message").hidden = true;    
+        document.getElementById("victoire").hidden = true;    
     }
 });
 
@@ -134,7 +151,6 @@ document.addEventListener("keydown", (e) => {
             break;
           case 357:
             colChoix(3,357)
-      
             break;
           case 473:
             colChoix(4,473)
@@ -154,9 +170,55 @@ document.addEventListener("keydown", (e) => {
 });
 /*//////////////////////////////////////////////////////////////////////////////////*/ 
 
+
+    
 function joinRoom(){
-    socket.emit("joinRoom");
+    if(roomID!==null) socket.emit("leaveRoom",(roomID));
+    socket.emit("joinRoom",(roomID));
+    let cases = document.getElementsByClassName("zone-jeton");
+    document.getElementById("txtClear").textContent=" ";
+    for (let c of cases) {
+        c.style.backgroundColor = "rgb(34,33,33)";
+    }
+    document.getElementById("victoire").hidden = true;   
 }
+
+function leaveRoom(){
+    socket.emit("leaveRoom",(roomID));
+}
+
+function creerCompte(){
+    let pseudo=document.getElementById("txtPseudo");
+    let mdp=document.getElementById("txtMdp");
+    socket.emit("register", {pseudo, mdp});
+}
+
+function loginCompte(){
+    let pseudo=document.getElementById("txtPseudo");
+    let mdp=document.getElementById("txtMdp");
+    socket.emit("login", {pseudo, mdp});
+}
+
+socket.on("login_fail",(data)=>{
+    document.getElementById("txtInfoLogin").textContent=data;
+    console.log(data);
+})
+
+socket.on("login_ok",(data)=>{
+    document.getElementById("txtInfoLogin").textContent=data;
+    console.log(data);
+})
+
+socket.on("register_fail",(data)=>{
+    document.getElementById("txtInfoLogin").textContent=data;
+    console.log(data);
+})
+
+socket.on("register_ok",(data)=>{
+    document.getElementById("txtInfoLogin").textContent=data;
+    console.log(data);
+})
+
 
 function recommencer(){
     console.log("clear " + numJoueur);
@@ -173,7 +235,7 @@ function colChoix(col,pos){
     socket.emit("move", { x: local.x, y: local.y , roomID: roomID});
 }
 
-/*FONTION RAJOUT2 PAR MATHYS
+/*FONTION RAJOUTEE PAR MATHYS
 //////////////////////////////////////////////////////////////////////*/
 var ttheme = document.getElementById("theme")
 
