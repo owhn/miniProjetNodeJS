@@ -1,46 +1,69 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <title>Puissance 4</title>
-      <link rel="stylesheet" href="style.css"/>
-  </head>
-  <body>
-    <div class="zone-jeu">
-      <!--Rajout canva-->
-      <canvas id="game" width="818" height="120"></canvas>
+<head>
+    <meta charset="utf-8" />
+    <title>Puissance 4</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
 
-      <div id="buttons">
-        <input type="button" id="colonneA" class="colonne" onclick="colChoix(0,9)">
-        <input type="button" id="colonneB" class="colonne" onclick="colChoix(1,125)">
-        <input type="button" id="colonneC" class="colonne" onclick="colChoix(2,241)">
-        <input type="button" id="colonneD" class="colonne" onclick="colChoix(3,357)">
-        <input type="button" id="colonneE" class="colonne" onclick="colChoix(4,473)">
-        <input type="button" id="colonneF" class="colonne" onclick="colChoix(5,589)">
-        <input type="button" id="colonneG" class="colonne" onclick="colChoix(6,705)">
-      </div>
-      <div class="board" id="plateau">
-        <!-- Ligne 1 -->
-        <div id="A1" class="zone-jeton"></div><div id="B1" class="zone-jeton"></div><div id="C1" class="zone-jeton"></div><div id="D1" class="zone-jeton"></div><div id="E1" class="zone-jeton"></div><div id="F1" class="zone-jeton"></div><div id="G1" class="zone-jeton"></div>
+<body>
+<div id="layout">
 
-        <!-- Ligne 2 -->
-        <div id="A2" class="zone-jeton"></div><div id="B2" class="zone-jeton"></div><div id="C2" class="zone-jeton"></div><div id="D2" class="zone-jeton"></div><div id="E2" class="zone-jeton"></div><div id="F2" class="zone-jeton"></div><div id="G2" class="zone-jeton"></div>
+    <!-- MENU GAUCHE (MATCHMAKING) -->
+    <div class="menu-left">
 
-        <!-- Ligne 3 -->
-        <div id="A3" class="zone-jeton"></div><div id="B3" class="zone-jeton"></div><div id="C3" class="zone-jeton"></div><div id="D3" class="zone-jeton"></div><div id="E3" class="zone-jeton"></div><div id="F3" class="zone-jeton"></div><div id="G3" class="zone-jeton"></div>
+        <div class="menu-card">
+            <h2>Non-Classé</h2>
+            <button id="btnJoinRandomUnranked" onclick="joinRandomUnranked()">Partie aléatoire</button>
+            <button id="btnCreatePrivate" onclick="createPrivateRoom()">Créer une Partie (code)</button>
+            <input id="privateCode" placeholder="Code ami">
+            <button id="btnJoinPrivate" onclick="joinPrivateRoom()">Rejoindre</button>
+            <p class="info" id="unrankedStatus"></p>
+        </div>
 
-        <!-- Ligne 4 -->
-        <div id="A4" class="zone-jeton"></div><div id="B4" class="zone-jeton"></div><div id="C4" class="zone-jeton"></div><div id="D4" class="zone-jeton"></div><div id="E4" class="zone-jeton"></div><div id="F4" class="zone-jeton"></div><div id="G4" class="zone-jeton"></div>
-
-        <!-- Ligne 5 -->
-        <div id="A5" class="zone-jeton"></div><div id="B5" class="zone-jeton"></div><div id="C5" class="zone-jeton"></div><div id="D5" class="zone-jeton"></div><div id="E5" class="zone-jeton"></div><div id="F5" class="zone-jeton"></div><div id="G5" class="zone-jeton"></div>
-
-        <!-- Ligne 6 -->
-        <div id="A6" class="zone-jeton"></div><div id="B6" class="zone-jeton"></div><div id="C6" class="zone-jeton"></div><div id="D6" class="zone-jeton"></div><div id="E6" class="zone-jeton"></div><div id="F6" class="zone-jeton"></div><div id="G6" class="zone-jeton"></div>
-      </div>
-      <!--Modif message victoire--> 
-      <blockquote id = "victoire" class = "victoire" hidden><h2 id = "twin"></h2></blockquote>
+        <div class="menu-card">
+            <h2>Classé</h2>
+            <button id="btnJoinRanked" onclick="joinRanked()">Trouvage de partie</button>
+            <p class="info">Compte requis</p>
+            <p id="rankedStatus"></p>
+        </div>
 
     </div>
+
+    <!-- ZONE CENTRALE : JEU -->
+    <div class="zone-jeu">
+
+        <!-- canvas (décor / player sprites) -->
+        <canvas id="game" width="818" height="120"></canvas>
+
+        <!-- boutons colonnes (invisibles mais cliquables) -->
+        <div id="buttons">
+            <input type="button" id="colonneA" class="colonne" onclick="colChoix(0,9)">
+            <input type="button" id="colonneB" class="colonne" onclick="colChoix(1,125)">
+            <input type="button" id="colonneC" class="colonne" onclick="colChoix(2,241)">
+            <input type="button" id="colonneD" class="colonne" onclick="colChoix(3,357)">
+            <input type="button" id="colonneE" class="colonne" onclick="colChoix(4,473)">
+            <input type="button" id="colonneF" class="colonne" onclick="colChoix(5,589)">
+            <input type="button" id="colonneG" class="colonne" onclick="colChoix(6,705)">
+        </div>
+
+        <!-- PLATEAU -->
+        <div class="board" id="plateau">
+            <div id="A1" class="zone-jeton"></div><div id="B1" class="zone-jeton"></div><div id="C1" class="zone-jeton"></div><div id="D1" class="zone-jeton"></div><div id="E1" class="zone-jeton"></div><div id="F1" class="zone-jeton"></div><div id="G1" class="zone-jeton"></div>
+            <div id="A2" class="zone-jeton"></div><div id="B2" class="zone-jeton"></div><div id="C2" class="zone-jeton"></div><div id="D2" class="zone-jeton"></div><div id="E2" class="zone-jeton"></div><div id="F2" class="zone-jeton"></div><div id="G2" class="zone-jeton"></div>
+            <div id="A3" class="zone-jeton"></div><div id="B3" class="zone-jeton"></div><div id="C3" class="zone-jeton"></div><div id="D3" class="zone-jeton"></div><div id="E3" class="zone-jeton"></div><div id="F3" class="zone-jeton"></div><div id="G3" class="zone-jeton"></div>
+            <div id="A4" class="zone-jeton"></div><div id="B4" class="zone-jeton"></div><div id="C4" class="zone-jeton"></div><div id="D4" class="zone-jeton"></div><div id="E4" class="zone-jeton"></div><div id="F4" class="zone-jeton"></div><div id="G4" class="zone-jeton"></div>
+            <div id="A5" class="zone-jeton"></div><div id="B5" class="zone-jeton"></div><div id="C5" class="zone-jeton"></div><div id="D5" class="zone-jeton"></div><div id="E5" class="zone-jeton"></div><div id="F5" class="zone-jeton"></div><div id="G5" class="zone-jeton"></div>
+            <div id="A6" class="zone-jeton"></div><div id="B6" class="zone-jeton"></div><div id="C6" class="zone-jeton"></div><div id="D6" class="zone-jeton"></div><div id="E6" class="zone-jeton"></div><div id="F6" class="zone-jeton"></div><div id="G6" class="zone-jeton"></div>
+        </div>
+
+        <!-- VICTOIRE (caché par défaut) -->
+        <blockquote id="victoire" class="victoire" hidden>
+            <h2 id="twin"></h2>
+        </blockquote>
+
+    </div>
+<<<<<<< Updated upstream
     
     <div class="zone-menu">
       <input type="button" id="btnClear" value="recommencer" onclick="recommencer()">
@@ -53,11 +76,49 @@
         <option value="bk" >Booba - Kaaris</option>
         <option value="gf" >George Floyd</option>
       </select>
+=======
+>>>>>>> Stashed changes
 
-      
+    <!-- MENU DROIT (CONNEXION / ROOM / THEME / ACTIONS) -->
+    <div class="menu-right">
+
+        <div class="menu-card">
+            <h2>Connexion</h2>
+            <input id="txtPseudo" type="text" placeholder="Pseudo">
+            <input id="txtMdp" type="password" placeholder="Mot de passe">
+            <button id="btnLogin" onclick="loginCompte()">Se connecter</button>
+            <button id="btnCreate" onclick="creerCompte()" class="alt">Créer un compte</button>
+            <p id="txtInfoLogin"></p>
+        </div>
+
+        <div class="menu-card">
+            <h2>Lobby</h2>
+            <p>Code du lobby : <span id="roomIDinfo">Aucune</span></p>
+            <p>Joueur 1 : <span id="player1Name">-</span> (<span id="player1Elo">-</span>)</p>
+            <p>Joueur 2 : <span id="player2Name">-</span> (<span id="player2Elo">-</span>)</p>
+        </div>
+
+        <div class="menu-card">
+            <h3>Thème</h3>
+            <select id="themeSelect" onchange="setTheme(this.value)">
+                <option value="spider">Spider-Man</option>
+                <option value="bk">Booba vs Kaaris</option>
+                <option value="gf">George Floyd</option>
+            </select>
+        </div>
+
+        <div class="menu-card">
+            <h3>Actions</h3>
+            <button id="btnAbandon" onclick="abandon()">Abandonner</button>
+            <button id="btnReset" onclick="recommencer()">Réinitialiser (vote)</button>
+            <p id="menuStatus"></p>
+        </div>
+
     </div>
-    
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="jeu.js"></script>
-  </body>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="jeu.js"></script>
+</body>
 </html>
