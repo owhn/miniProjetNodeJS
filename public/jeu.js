@@ -184,18 +184,19 @@ function joinRoom(){
 }
 
 function leaveRoom(){
-    socket.emit("leaveRoom",(roomID));
+    socket.emit("leaveRoom",(roomID, playerID));
 }
 
 function creerCompte(){
-    let pseudo=document.getElementById("txtPseudo");
-    let mdp=document.getElementById("txtMdp");
+    let pseudo=document.getElementById("txtPseudo").value;
+    let mdp=document.getElementById("txtMdp").value;
     socket.emit("register", {pseudo, mdp});
 }
 
 function loginCompte(){
-    let pseudo=document.getElementById("txtPseudo");
-    let mdp=document.getElementById("txtMdp");
+    let pseudo,mdp="";
+    pseudo=document.getElementById("txtPseudo").value;
+    mdp=document.getElementById("txtMdp").value;
     socket.emit("login", {pseudo, mdp});
 }
 
@@ -207,6 +208,8 @@ socket.on("login_fail",(data)=>{
 socket.on("login_ok",(data)=>{
     document.getElementById("txtInfoLogin").textContent=data;
     console.log(data);
+    playerID=data.id;
+    console.log("id: "+playerID);
 })
 
 socket.on("register_fail",(data)=>{

@@ -16,7 +16,7 @@ let votant=[];
 
 let joueurs = {}; // joueurs[roomID] = { socketId : {x, y, playerNumber} }
 
-let rooms = {};
+let rooms = {}; 
 
 function createEmptyBoard() {
   return [
@@ -52,6 +52,8 @@ io.on("connection",(socket) =>  {
         socket.emit("login_fail", result.msg);
     } else {
         socket.emit("login_ok", result.user);
+        let elo= await bdd.getElo(pseudo,mdp);
+        console.log("pseudo : ", pseudo, " elo : ", elo);
     }
   });
 
@@ -60,22 +62,29 @@ io.on("connection",(socket) =>  {
     io.to(closingRoomID).emit("closedRoom",(closingRoomID + " fermée"));
   });
 
-  socket.on("joinRoom", (prevID) => {
+  socket.on("joinRoom", (prevID,playerID) => {
     let roomID = null;
-
+    let baseElo,xPlayer1elo,xPlayer2elo;
+    if(playerID===null){
+      baseElo=500;
+    }
     for (let id in rooms){
       if (rooms[id].players.length===1){
+        if(playerID!==null) xPlayer2elo=await bdd.getElo(playerID);
         roomID=id;
         break;
       }
     }
+
+
 
     if(!roomID){
       roomID= "room" + Math.floor(Math.random()*100000);
       rooms[roomID] = {
         players: [],
         turn: 1,
-        board: createEmptyBoard()
+        board: createEmptyBoard(),
+        player1elo: playerElo;
       };
     }
 

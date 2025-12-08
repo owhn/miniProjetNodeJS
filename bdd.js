@@ -27,18 +27,29 @@ async function createUser(pseudo, mdp) {
 
 async function getUser(pseudo) {
     const [rows] = await bdd.execute(
-        "SELECT * FROM users WHERE pseudo = ?",
+        "SELECT * FROM p4_joueurs WHERE pseudo = ?",
         [pseudo]
     );
+    //console.log(rows[0]);
     return rows[0];
 }
 
 async function loginUser(pseudo, mdp) {
     const user = await getUser(pseudo);
     if (!user) return { ok: false, msg: "Pseudo inconnu" };
-    if (user.mdp !== mdp) return { ok: false, msg: "Mot de passe incorrect" };
+    console.log(user.pseudo);
+    if (user.password !== mdp) return { ok: false, msg: "Mot de passe incorrect" };
 
-    return { ok: true, user };
+    let userID=user.id;
+    return { ok: true, user, id: userID };
+}
+
+async function getElo(pseudo, mdp){
+    const [rows] = await bdd.execute(
+        "SELECT elo FROM p4_elo JOIN p4_joueurs ON p4_elo.id_joueur=p4_joueurs.id WHERE p4_joueurs.pseudo= ? AND p4_joueurs.password = ?",
+        [pseudo,mdp]
+    );
+    return rows[0].elo;
 }
 
 
@@ -47,5 +58,6 @@ module.exports = {
     connexion,
     createUser,
     getUser,
-    loginUser
+    loginUser,
+    getElo
 };
